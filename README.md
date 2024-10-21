@@ -1,6 +1,6 @@
 Para rodar o usecase de listagem das ordens:
 
-SETUP:
+Setup:
 1. rodar docker compose up -d -> inicia os containers mysql e rabbitMQ
 2. rodar docker ps -> pega o container ID que está rodando o mysql
 3. rodar docker exec -it a4c34d47aab1 mysql -uroot -p orders -> acessa o mysql do container na database orders
