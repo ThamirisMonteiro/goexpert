@@ -2,6 +2,7 @@ package web
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 
 	"github.com/devfullcycle/20-CleanArch/internal/entity"
@@ -46,4 +47,23 @@ func (h *WebOrderHandler) Create(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+}
+
+func (h *WebOrderHandler) List(w http.ResponseWriter, _ *http.Request) {
+	listOrder := usecase.NewListOrdersUseCase(h.OrderRepository)
+	output, err := listOrder.Execute(usecase.ListOrdersInputDTO{})
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+
+	err = json.NewEncoder(w).Encode(output)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	log.Printf("Output: %+v", output)
 }

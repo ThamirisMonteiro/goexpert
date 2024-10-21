@@ -13,4 +13,5 @@ input OrderInput {
 
 type Mutation {
     createOrder(input: OrderInput): Order
+    listOrders: [Order]
 }
